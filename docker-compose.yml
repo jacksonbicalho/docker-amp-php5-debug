@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  server:
+    build:
+      context: ./php-apache
+      args:
+        APACHE_SERVER_NAME: ${APACHE_SERVER_NAME}
+        WORK_DIR: ${WORK_DIR}
+    container_name: ${PREFIX_CONTAINER}_server
+    ports:
+      - 80:80
+    volumes:
+      - ./www:/var/www/
+      - ./logs/apache2:/var/log/apache2
+    networks:
+      rede:
+        ipv4_address: 10.1.2.3
+
+  server_db:
+    image: mysql:5.5
+    container_name: ${PREFIX_CONTAINER}_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev
+      - MYSQL_DATABASE=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+    volumes:
+      - ./db/mysql:/var/lib/mysql/
+      - ./db/dumps:/var/dumps/
+    ports:
+      - 8306:3306
+    networks:
+      rede:
+        ipv4_address: 10.1.2.2
+
+networks:
+  rede:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.1.2.0/16

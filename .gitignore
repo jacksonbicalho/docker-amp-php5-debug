@@ -1,0 +1,6 @@
+.env
+logs/*
+db/dumps/*
+db/mysql
+!.keep
+
