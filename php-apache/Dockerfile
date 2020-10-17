@@ -34,9 +34,10 @@ COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY app.conf /etc/apache2/sites-available/000-default.conf
 
 ARG APACHE_SERVER_NAME
+ARG APACHE_DOCUMENT_ROOT
 
 RUN sed -i "s/SERVER_NAME/${APACHE_SERVER_NAME}/g" /etc/apache2/sites-available/000-default.conf
-RUN sed -i "s/WORK_DIR/${WORK_DIR}/g" /etc/apache2/sites-available/000-default.conf
+RUN sed -i "s#APACHE_DOCUMENT_ROOT#${APACHE_DOCUMENT_ROOT}#g" /etc/apache2/sites-available/000-default.conf
 
 RUN a2ensite 000-default.conf
 

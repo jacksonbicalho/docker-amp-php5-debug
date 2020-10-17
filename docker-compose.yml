@@ -7,11 +7,12 @@ services:
       args:
         APACHE_SERVER_NAME: ${APACHE_SERVER_NAME}
         WORK_DIR: ${WORK_DIR}
+        APACHE_DOCUMENT_ROOT: ${APACHE_DOCUMENT_ROOT}
     container_name: ${PREFIX_CONTAINER}_server
     ports:
       - 80:80
     volumes:
-      - ./www:/var/www/
+      - ./www:${WORK_DIR}
       - ./logs/apache2:/var/log/apache2
     networks:
       rede:
