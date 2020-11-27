@@ -2,6 +2,6 @@
 logs/*
 db/dumps/*
 db/mysql
-www/html/*
+www/html/
 !.keep
 
